@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Assets/css/style.css" />
+</head>
+<body>
+    <header>
+        <h1 class="w-100 text-center bg-dark text-white">Weather Dashboard</h1>
+    </header>
+    <main >
+        <section class="row container m-1">
+            <section class="col-3 border-bottom">
+                <div class="form-group row">
+                    <h2>Search for city</h2>
+                    <input type="text" name="Search" class="form-control mb-1"  id="searchTerm" placeholder="Adelaide" >
+                    <button class="btn btn-primary btn-block" id="searchBtn" >Search</button>
+                </div>
+                <div class="row" id="searchHistory">
+    
+                </div>
+            </section>
+            <section class="col-9 pl-5">
+                <div class="container row border" >
+                    <div class="col" id="current">
+
+                    </div>
+                </div>
+                <div >
+                    <h3 class="row">5-Day Forecast</h3>
+                    <div class="row"  id="forecast"></div>
+                </div>
+            </section>
+        </section>
+        <script src="./Assets/js/app.js"></script>
+    </main>
+</body>
+</html>
