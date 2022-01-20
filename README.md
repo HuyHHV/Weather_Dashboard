@@ -17,8 +17,11 @@ This app is a weather dashboard that will run in the browser and feature dynamic
 * WHEN I click on a city in the search history
 * THEN I am again presented with current and future conditions for that city
 
-The following image shows the web application's appearance and functionality:
 
+
+## Screenshot
+
+The following image shows the web application's appearance and functionality:
 
 ![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions.](./Assets\Weather_Dashboard.gif)
 
