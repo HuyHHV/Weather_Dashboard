@@ -37,7 +37,7 @@ function fetchCoor(a) {
    });
  }
 
-// fetch current weather data
+// fetch weather data
 function fetchOnecall(lat,lon) {
   var oneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,minutely,alerts&appid='+APIkey+ '&units=metric';
   fetch(oneCall)
@@ -76,6 +76,7 @@ function currentWeather(data) {
     UV.textContent= "UV Index: "+ data.current.uvi;
     // UV color
     UVcolor(data.current.uvi,UV);
+    // 
     current.appendChild(cityName);
     current.appendChild(img);
     current.appendChild(conditions);
@@ -83,7 +84,7 @@ function currentWeather(data) {
     conditions.appendChild(wind);
     conditions.appendChild(humidity);
     conditions.appendChild(UV);
-    // temp wind humidity UV index
+  
 }
 // display 5-day forecast
 function futureWeather(data) {
