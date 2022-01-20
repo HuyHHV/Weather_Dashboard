@@ -5,23 +5,21 @@ var forecast = document.querySelector('#forecast');
 var historyBox= document.querySelector('#historyBox')
 var cityInput = document.querySelector('#searchTerm');
 var searchHistory = [];
-console.log(searchBtn)
 
-function search() {
-  current.innerHTML='';
+function search(a) {
   forecast.innerHTML='';
-  var city = cityInput.value.trim();
-  if (city === "") {
+  current.innerHTML='';
+  if (a === "") {
     return;
   }
-  if (!searchHistory.includes(city)) {
-    searchHistory.push(city);
+  if (!searchHistory.includes(a)) {
+    searchHistory.push(a);
     localStorage.setItem("weatherSearch", JSON.stringify(searchHistory));
   }
   render();
     
  // fetch city's lat and lon
-    var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&cnt=6&appid='+APIkey+'&units=metric';
+    var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+a+'&cnt=6&appid='+APIkey+'&units=metric';
     console.log(link5day)
     fetch(link5day)
     .then(function (response) {
@@ -118,7 +116,6 @@ function render() {
    if (storedHistory !== null) {
     searchHistory = storedHistory;
    }
-   console.log(searchHistory)
    historyBox.innerHTML="";
    addBtn(searchHistory)
 }
@@ -129,7 +126,7 @@ function addBtn(a) {
   for (var i=0; i<a.length;i++) {
     var button= document.createElement('button');
     button.innerHTML=a[i];
-    button.className = 'btn btn-secondary btn-block'
+    button.className = 'btn btn-secondary btn-block historyBtn'
     historyBox.appendChild(button);
    };
 }
@@ -137,5 +134,18 @@ function addBtn(a) {
 render()
 
 console.log(searchHistory)
-searchBtn.addEventListener('click', search);
 
+searchBtn.addEventListener('click', function() {
+    var city = cityInput.value.trim();
+    search(city)
+  }  
+)
+
+historyBox.addEventListener("click", function(event) {
+  var element = event.target;
+  // Checks if element is a button
+  if (element.matches("button") === true) {
+    city =element.innerText;
+    search(city);
+  };
+})
