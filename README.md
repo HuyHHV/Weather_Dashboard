@@ -23,8 +23,7 @@ This app is a weather dashboard that will run in the browser and feature dynamic
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions.](./Assets\Weather_Dashboard.gif)
-
+![screenshot.](./Assets\Weather_Dashboard.gif)
 
 
 ## URLs
