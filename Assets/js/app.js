@@ -7,6 +7,7 @@ var cityInput = document.querySelector('#searchTerm');
 var displayDate= moment();
 var searchHistory = [];
 
+// Initiate search
 function search(a) {
   forecast.innerHTML='';
   current.innerHTML='';
@@ -18,21 +19,24 @@ function search(a) {
     localStorage.setItem("weatherSearch", JSON.stringify(searchHistory));
   }
   render();
-    
- // fetch city's lat and lon
-    var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+a+'&cnt=6&appid='+APIkey+'&units=metric';
-    console.log(link5day)
-    fetch(link5day)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {   
-      var lat = data.city.coord.lat;
-      var lon = data.city.coord.lon; 
-      searchedCity= data.city.name;
-      fetchOnecall(lat,lon) ;
-      });
-}
+  fetchCoor(a)
+} 
+// fetch city's lat and lon
+ function fetchCoor(a) {
+   var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+a+'&cnt=6&appid='+APIkey+'&units=metric';
+   console.log(link5day)
+   fetch(link5day)
+   .then(function (response) {
+     return response.json();
+   })
+   .then(function (data) {   
+     var lat = data.city.coord.lat;
+     var lon = data.city.coord.lon; 
+     searchedCity= data.city.name;
+     fetchOnecall(lat,lon) ;
+     });
+ }
+
 // fetch current weather data
 function fetchOnecall(lat,lon) {
     var oneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,minutely,alerts&appid='+APIkey+ '&units=metric';
@@ -70,6 +74,8 @@ function currentWeather(data) {
     wind.textContent= "Wind: "+ data.current.wind_speed+ " m/s";
     humidity.textContent= "Humidity: "+ data.current.humidity+ " %";
     UV.textContent= "UV Index: "+ data.current.uvi;
+    // UV color
+    UVcolor(data.current.uvi,UV);
     current.appendChild(cityName);
     current.appendChild(img);
     current.appendChild(conditions);
@@ -132,9 +138,24 @@ function addBtn(a) {
     historyBox.appendChild(button);
    };
 }
-// init
-render()
+// display UV color
+function UVcolor(index,UV) {
+  console.log(index)
+  if (index<5) {
+    UV.className='favour';
+  }
+  else if (5<=index<8) {
+    UV.className='moderate';
+  }
+  else if (8<=index) {
+    UV.className='servere';
+  }
+  return UV
+}
 
+// init
+
+render()
 
 searchBtn.addEventListener('click', function() {
     var city = cityInput.value.trim();
