@@ -23,7 +23,7 @@ This app is a weather dashboard that will run in the browser and feature dynamic
 
 The following image shows the web application's appearance and functionality:
 
-![screenshot.](./Assets\Weather_Dashboard.gif)
+![screenshot.](./Assets\screenshot.gif)
 
 
 ## URLs
