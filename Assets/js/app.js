@@ -2,29 +2,36 @@ const APIkey = 'ba9bcf4f4e1396ead860b9554bf409d3';
 var searchBtn = document.querySelector('#searchBtn');
 var current = document.querySelector('#current');
 var forecast = document.querySelector('#forecast');
-var history = ['Adelaide'];
+var historyBox= document.querySelector('#historyBox')
+var cityInput = document.querySelector('#searchTerm');
+var searchHistory = [];
 console.log(searchBtn)
-// fetch weather forcast data
+
 function search() {
-    current.innerHTML='';
-    forecast.innerHTML='';
-    var city = document.querySelector('#searchTerm').value;
-    storeHistory(city);
-    console.log(city)
+  current.innerHTML='';
+  forecast.innerHTML='';
+  var city = cityInput.value.trim();
+  if (city === "") {
+    return;
+  }
+  if (!searchHistory.includes(city)) {
+    searchHistory.push(city);
+    localStorage.setItem("weatherSearch", JSON.stringify(searchHistory));
+  }
+  render();
+    
+ // fetch city's lat and lon
     var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&cnt=6&appid='+APIkey+'&units=metric';
     console.log(link5day)
     fetch(link5day)
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) {
-      // Use the console to examine the response
-    
+    .then(function (data) {   
       var lat = data.city.coord.lat;
       var lon = data.city.coord.lon; 
       searchedCity= data.city.name;
       fetchOnecall(lat,lon) ;
-      
       });
 }
 // fetch current weather data
@@ -103,31 +110,32 @@ function futureWeather(data) {
     }
 }
 
-//Store search hisoty
-function storeHistory(infor) {
-  console.log(infor);
-  history.push(infor);
-  localStorage.setItem("weatherSearch", JSON.stringify(infor));
-}
-
 //Render search history
 function render() {
    // Get search history from localStorage
-   var searchHistory = JSON.parse(localStorage.getItem("weatherSearch"));
-   // If search history were retrieved from localStorage, update the todos array to it
-   if (searchHistory !== null) {
-     history = searchHistory;
+   var storedHistory = JSON.parse(localStorage.getItem("weatherSearch"));
+   // If search history were retrieved from localStorage, update 
+   if (storedHistory !== null) {
+    searchHistory = storedHistory;
    }
-   history.forEach(element => {
-    var button= document.createElement('button');
-    button.innerHTML=element;
-    button.className = 'btn btn-secondary btn-block'
-   });
+   console.log(searchHistory)
+   historyBox.innerHTML="";
+   addBtn(searchHistory)
 }
 
-// init
-function init() {
-  render()
+
+// Add buttons
+function addBtn(a) {
+  for (var i=0; i<a.length;i++) {
+    var button= document.createElement('button');
+    button.innerHTML=a[i];
+    button.className = 'btn btn-secondary btn-block'
+    historyBox.appendChild(button);
+   };
 }
+// init
+render()
+
+console.log(searchHistory)
 searchBtn.addEventListener('click', search);
 
