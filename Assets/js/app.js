@@ -22,35 +22,35 @@ function search(a) {
   fetchCoor(a)
 } 
 // fetch city's lat and lon
- function fetchCoor(a) {
-   var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+a+'&cnt=6&appid='+APIkey+'&units=metric';
-   console.log(link5day)
-   fetch(link5day)
-   .then(function (response) {
-     return response.json();
-   })
-   .then(function (data) {   
-     var lat = data.city.coord.lat;
-     var lon = data.city.coord.lon; 
-     searchedCity= data.city.name;
-     fetchOnecall(lat,lon) ;
-     });
+function fetchCoor(a) {
+  var link5day = 'https://api.openweathermap.org/data/2.5/forecast?q='+a+'&cnt=6&appid='+APIkey+'&units=metric';
+  console.log(link5day)
+  fetch(link5day)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {   
+  var lat = data.city.coord.lat;
+  var lon = data.city.coord.lon; 
+  searchedCity= data.city.name;
+  fetchOnecall(lat,lon) ;
+   });
  }
 
 // fetch current weather data
 function fetchOnecall(lat,lon) {
-    var oneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,minutely,alerts&appid='+APIkey+ '&units=metric';
-    fetch(oneCall)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // Use the console to examine the response
-      var APIonecall = data;
-      console.log(APIonecall);
-      currentWeather(APIonecall);
-      futureWeather(APIonecall);
-      });  
+  var oneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=hourly,minutely,alerts&appid='+APIkey+ '&units=metric';
+  fetch(oneCall)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+// Use the console to examine the response
+  var APIonecall = data;
+  console.log(APIonecall);
+  currentWeather(APIonecall);
+  futureWeather(APIonecall);
+  });  
 }
 // display current weather
 function currentWeather(data) {
