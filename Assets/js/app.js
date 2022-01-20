@@ -4,6 +4,7 @@ var current = document.querySelector('#current');
 var forecast = document.querySelector('#forecast');
 var historyBox= document.querySelector('#historyBox')
 var cityInput = document.querySelector('#searchTerm');
+var displayDate= moment();
 var searchHistory = [];
 
 function search(a) {
@@ -63,7 +64,7 @@ function currentWeather(data) {
     var wind = document.createElement('li');
     var humidity = document.createElement('li');
     var UV = document.createElement('li');
-    cityName.textContent= searchedCity;
+    cityName.textContent= searchedCity+'('+ displayDate.format("DD/MM/YYYY") + ')';
     console.log(data)
     temp.textContent= "Temp: "+ data.current.temp+ " \xB0C";
     wind.textContent= "Wind: "+ data.current.wind_speed+ " m/s";
@@ -93,7 +94,8 @@ function futureWeather(data) {
         futureTemp= document.createElement('li');
         futureWind= document.createElement('li');
         futureHumidity= document.createElement('li');
-        date.textContent= "Comming Soon";
+        nextdate=displayDate.add(1,"day");
+        date.textContent= nextdate.format("DD/MM/YYYY");
         futureTemp.textContent= "Temp: "+ data.daily[i].temp.day+ " \xB0C";
         futureWind.textContent= "Wind: "+ data.daily[i].wind_speed+ " m/s";
         futureHumidity.textContent= "Humidity: "+ data.daily[i].humidity+ " %";
@@ -133,7 +135,6 @@ function addBtn(a) {
 // init
 render()
 
-console.log(searchHistory)
 
 searchBtn.addEventListener('click', function() {
     var city = cityInput.value.trim();
