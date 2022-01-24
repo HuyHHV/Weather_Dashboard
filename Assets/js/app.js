@@ -57,7 +57,7 @@ function currentWeather(data) {
     var cityName = document.createElement('h3');
     cityName.classList.add('row')
     var img = document.createElement('img');
-    icon = 'http://openweathermap.org/img/wn/'+data.current.weather[0].icon+'@2x.png'
+    icon = 'https://openweathermap.org/img/wn/'+data.current.weather[0].icon+'@2x.png'
     img.setAttribute("src", icon);
     console.log(data.current.weather[0].icon)
     console.log(icon);
@@ -94,7 +94,7 @@ function futureWeather(data) {
         date = document.createElement('h4')
         date.classList.add('row')
         var img = document.createElement('img');
-        img.setAttribute("src", 'http://openweathermap.org/img/wn/'+data.daily[i].weather[0].icon+'@2x.png');
+        img.setAttribute("src", 'https://openweathermap.org/img/wn/'+data.daily[i].weather[0].icon+'@2x.png');
         img.classList.add('row')
         futureConditions = document.createElement('ul');
         futureConditions.classList.add('row')
